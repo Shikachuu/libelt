@@ -89,7 +89,8 @@ export function SubmitToolButton() {
                     Add Your Tool
                   </p>
                   <p className="font-sans text-sm text-muted-foreground mt-1">
-                    {"Add an entry to"} <code className="font-mono text-primary">tools.json</code>{" "}
+                    {"Add an entry to a category file in"}{" "}
+                    <code className="font-mono text-primary">tools/</code>{" "}
                     {"with name, description, categories, and GitHub URL."}
                   </p>
                 </div>
@@ -111,7 +112,7 @@ export function SubmitToolButton() {
 
               <div className="border-t-2 border-border pt-4 mt-2">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/Shikachuu/libelt"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-foreground bg-primary text-primary-foreground font-mono text-xs uppercase tracking-wider hover:bg-primary/90 transition-colors"
