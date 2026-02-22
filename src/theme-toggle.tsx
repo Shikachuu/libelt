@@ -1,17 +1,35 @@
 import { Moon, Sun } from "lucide-react"
 import { useEffect, useState } from "react"
 
+function isInitialThemeDark() {
+  const stored = localStorage.getItem("theme")
+  if (stored) {
+    return stored === "dark"
+  }
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+}
+
 export function ThemeToggle() {
-  const [dark, setDark] = useState(false)
+  const [dark, setDark] = useState(isInitialThemeDark)
 
   useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"))
+    document.documentElement.classList.toggle("dark", dark)
+  }, [dark])
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+    const handleChange = () => {
+      if (!localStorage.getItem("theme")) {
+        setDark(mediaQuery.matches)
+      }
+    }
+    mediaQuery.addEventListener("change", handleChange)
+    return () => mediaQuery.removeEventListener("change", handleChange)
   }, [])
 
   const toggle = () => {
     const next = !dark
     setDark(next)
-    document.documentElement.classList.toggle("dark", next)
     localStorage.setItem("theme", next ? "dark" : "light")
   }
 
