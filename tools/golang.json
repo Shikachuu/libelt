@@ -1,0 +1,101 @@
+{
+  "$schema": "./schema.json",
+  "tools": [
+    {
+      "name": "gotestfmt",
+      "github": "https://github.com/GoTestTools/gotestfmt",
+      "description": "Go test output formatter for human readble test outpus.",
+      "categories": ["go", "testing", "formatter"]
+    },
+    {
+      "name": "goverter",
+      "github": "https://github.com/jmattheis/goverter",
+      "description": "goverter is a tool for creating type-safe converters. All you have to do is create an interface and execute goverter.",
+      "categories": ["go", "code generator"]
+    },
+    {
+      "name": "Tokenex",
+      "github": "https://github.com/riptideslabs/tokenex",
+      "description": "Tokenex provides a unified interface for obtaining and refreshing credentials from various cloud providers and authentication systems. It is designed to facilitate secure access to cloud resources by exchanging identity tokens for temporary credentials.",
+      "categories": ["go", "security", "oatuh2", "vault", "openbao", "aws", "gcp", "azure"]
+    },
+    {
+      "name": "Goose",
+      "github": "https://github.com/pressly/goose",
+      "description": "Goose is a database migration tool. Both a CLI and a library.",
+      "categories": ["go", "sql", "migration", "database"]
+    },
+    {
+      "name": "Passkit",
+      "github": "https://github.com/alvinbaena/passkit",
+      "description": "A go library for generating Apple Wallet PKPasses.",
+      "categories": ["go", "pkpass", "wallet"]
+    },
+    {
+      "name": "Loongsuite",
+      "github": "https://github.com/alibaba/loongsuite-go-agent",
+      "description": "Loongsuite Go Agent provides an automatic solution for Golang applications that want to leverage OpenTelemetry to enable effective observability. No code changes are required in the target application, the instrumentation is done at compile time.",
+      "categories": ["go", "otel", "code generator", "tracing", "metrics"]
+    },
+    {
+      "name": "OpenTelemetry Go Compile Instrumentation",
+      "github": "https://github.com/open-telemetry/opentelemetry-go-compile-instrumentation",
+      "description": "A tool to automatically instrument Go applications with OpenTelemetry at compile-time. It modifies the Go build process to inject OpenTelemetry code into the application without requiring manual changes to the source code.",
+      "categories": ["go", "otel", "code generator", "tracing", "metrics"]
+    },
+    {
+      "name": "valkey-go",
+      "github": "https://github.com/valkey-io/valkey-go",
+      "description": "A fast Golang Valkey client that does auto pipelining and supports server-assisted client-side caching.",
+      "categories": ["go", "valkey", "redis"]
+    },
+    {
+      "name": "apitest",
+      "github": "https://github.com/steinfletcher/apitest",
+      "description": "A simple and extensible behavioural testing library for Go. You can use api test to simplify REST API, HTTP handler and e2e tests.",
+      "categories": ["go", "api", "testing", "mocking"]
+    },
+    {
+      "name": "validator",
+      "github": "https://github.com/go-playground/validator",
+      "description": "Package validator implements value validations for structs and individual fields based on tags.",
+      "categories": ["go", "validation"]
+    },
+    {
+      "name": "miniredis",
+      "github": "https://github.com/alicebob/miniredis",
+      "description": "Pure Go Redis test server, used in Go unittests.",
+      "categories": ["go", "redis", "valkey", "testing", "mocking"]
+    },
+    {
+      "name": "httpin",
+      "github": "https://github.com/ggicci/httpin",
+      "description": "httpin helps you easily decode data from an HTTP request (query params, bodies etc.) from struct tags.",
+      "categories": ["go", "api"]
+    },
+    {
+      "name": "controller-idioms",
+      "github": "https://github.com/authzed/controller-idioms",
+      "description": "controller-idioms is a collection of generic libraries that complement and extend fundamental Kubernetes libraries (e.g. controller-runtime) to implement best practices for Kubernetes controllers.",
+      "categories": ["go", "kubernetes", "operator"]
+    },
+    {
+      "name": "filepath-securejoin",
+      "github": "https://github.com/cyphar/filepath-securejoin",
+      "description": "An implementation of `SecureJoin` to make path resolution within a potentially-untrusted directory safe on GNU/Linux.",
+      "categories": ["go", "security", "validation"]
+    },
+    {
+      "name": "jsonschema",
+      "github": "https://github.com/kaptinlin/jsonschema",
+      "description": "A powerful Go JSON Schema validator library aligned with the JSON Schema Draft 2020-12. It features enhanced validation outputs and supports internationalization.",
+      "categories": ["go", "json schema", "validation"]
+    },
+    {
+      "name": "sigs.k8s.io/yaml",
+      "github": "https://github.com/kubernetes-sigs/yaml",
+      "description": "A wrapper around go-yaml designed to enable a better way of handling YAML when marshaling to and from structs.",
+      "categories": ["go", "yaml"]
+    }
+  ]
+}

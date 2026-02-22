@@ -1,0 +1,29 @@
+{
+  "$schema": "./schema.json",
+  "tools": [
+    {
+      "name": "kubert",
+      "github": "https://github.com/olix0r/kubert",
+      "description": "Rust Kubernetes runtime helpers. Based on kube-rs.",
+      "categories": ["rust", "kubernetes", "operator"]
+    },
+    {
+      "name": "kuber-s",
+      "github": "https://github.com/kube-rs/kube",
+      "description": "A Rust client for Kubernetes in the style of a more generic client-go, a runtime abstraction inspired by controller-runtime, and a derive macro for CRDs inspired by kubebuilder.",
+      "categories": ["rust", "kubernetes", "operator"]
+    },
+    {
+      "name": "Turmoil",
+      "github": "https://github.com/tokio-rs/turmoil",
+      "description": "Turmoil is a framework for testing distributed systems. It provides deterministic execution by running multiple concurrent hosts within a single thread. It introduces `hardship` into the system via changes in the simulated network and filesystem.",
+      "categories": ["rust", "testing", "mocking"]
+    },
+    {
+      "name": "Tracing",
+      "github": "https://github.com/tokio-rs/tracing",
+      "description": "tracing is a framework for instrumenting Rust programs to collect structured, event-based diagnostic information.",
+      "categories": ["rust", "logging", "tracing", "otel"]
+    }
+  ]
+}

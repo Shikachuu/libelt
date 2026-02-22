@@ -1,0 +1,29 @@
+{
+  "$schema": "./schema.json",
+  "tools": [
+    {
+      "name": "sqruff",
+      "github": "https://github.com/quarylabs/sqruff",
+      "description": "sqruff is an efficient SQL linter and formatter written in Rust that supports multiple sql dialects.",
+      "categories": ["sql", "linter", "formatter"]
+    },
+    {
+      "name": "yamlfmt",
+      "github": "https://github.com/google/yamlfmt",
+      "description": "yamlfmt is an extensible command line tool or library to format yaml files.",
+      "categories": ["yaml", "go", "formatter"]
+    },
+    {
+      "name": "Vacuum",
+      "github": "https://github.com/daveshanley/vacuum",
+      "description": "vacuum is the worlds fastest OpenAPI 3, OpenAPI 2 / Swagger linter and quality analysis tool.",
+      "categories": ["yaml", "openapi", "linter", "formatter"]
+    },
+    {
+      "name": "TFLint",
+      "github": "https://github.com/terraform-linters/tflint",
+      "description": "A Pluggable Terraform Linter and each feature is provided by plugins, Find possible errors (like invalid instance types) for Major Cloud providers (AWS/Azure/GCP).",
+      "categories": ["terraform", "linter", "formatter"]
+    }
+  ]
+}

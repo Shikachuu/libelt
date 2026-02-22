@@ -1,0 +1,11 @@
+{
+  "$schema": "./schema.json",
+  "tools": [
+    {
+      "name": "neverthrow",
+      "github": "https://github.com/supermacro/neverthrow",
+      "description": "Type-Safe Error as value library for JS & TypeScript.",
+      "categories": ["typescript", "javascript", "validation", "error handling"]
+    }
+  ]
+}
