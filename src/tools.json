@@ -1,0 +1,188 @@
+[
+  {
+    "name": "React",
+    "description": "A JavaScript library for building user interfaces with a component-based architecture and virtual DOM.",
+    "categories": ["Frontend", "UI Framework"],
+    "github": "https://github.com/facebook/react"
+  },
+  {
+    "name": "Next.js",
+    "description": "The React framework for production. Hybrid static & server rendering, TypeScript support, smart bundling.",
+    "categories": ["Frontend", "Framework", "SSR"],
+    "github": "https://github.com/vercel/next.js"
+  },
+  {
+    "name": "Vite",
+    "description": "Next generation frontend tooling. Lightning fast HMR and optimized build with Rollup.",
+    "categories": ["Build Tool", "Frontend"],
+    "github": "https://github.com/vitejs/vite"
+  },
+  {
+    "name": "Tailwind CSS",
+    "description": "A utility-first CSS framework for rapidly building custom user interfaces without leaving your HTML.",
+    "categories": ["CSS", "Frontend", "Styling"],
+    "github": "https://github.com/tailwindlabs/tailwindcss"
+  },
+  {
+    "name": "TypeScript",
+    "description": "Typed superset of JavaScript that compiles to plain JS. Adds optional static typing and class-based OOP.",
+    "categories": ["Language", "Build Tool"],
+    "github": "https://github.com/microsoft/TypeScript"
+  },
+  {
+    "name": "Prisma",
+    "description": "Next-generation ORM for Node.js and TypeScript. Type-safe database client with auto-generated queries.",
+    "categories": ["Database", "ORM", "Backend"],
+    "github": "https://github.com/prisma/prisma"
+  },
+  {
+    "name": "Drizzle ORM",
+    "description": "TypeScript ORM that is lightweight, performant, and type-safe with zero dependencies.",
+    "categories": ["Database", "ORM", "Backend"],
+    "github": "https://github.com/drizzle-team/drizzle-orm"
+  },
+  {
+    "name": "tRPC",
+    "description": "End-to-end typesafe APIs. Build fully typesafe APIs without schemas or code generation.",
+    "categories": ["API", "Backend", "TypeScript"],
+    "github": "https://github.com/trpc/trpc"
+  },
+  {
+    "name": "Zustand",
+    "description": "Small, fast and scalable state management. Simplified flux principles with hooks-based API.",
+    "categories": ["State Management", "Frontend"],
+    "github": "https://github.com/pmndrs/zustand"
+  },
+  {
+    "name": "Zod",
+    "description": "TypeScript-first schema validation with static type inference. Parse, don't validate.",
+    "categories": ["Validation", "TypeScript"],
+    "github": "https://github.com/colinhacks/zod"
+  },
+  {
+    "name": "Shadcn UI",
+    "description": "Beautifully designed components built with Radix UI and Tailwind CSS. Copy and paste into your apps.",
+    "categories": ["UI Components", "Frontend", "Styling"],
+    "github": "https://github.com/shadcn-ui/ui"
+  },
+  {
+    "name": "Framer Motion",
+    "description": "A production-ready motion library for React. Declarative animations and gestures.",
+    "categories": ["Animation", "Frontend"],
+    "github": "https://github.com/framer/motion"
+  },
+  {
+    "name": "Express",
+    "description": "Fast, unopinionated, minimalist web framework for Node.js. The de facto standard server framework.",
+    "categories": ["Backend", "Framework", "API"],
+    "github": "https://github.com/expressjs/express"
+  },
+  {
+    "name": "Hono",
+    "description": "Ultrafast web framework for the Edges. Works on Cloudflare Workers, Deno, Bun, and Node.js.",
+    "categories": ["Backend", "Framework", "API", "Edge"],
+    "github": "https://github.com/honojs/hono"
+  },
+  {
+    "name": "Playwright",
+    "description": "Reliable end-to-end testing for modern web apps. Cross-browser, cross-platform, cross-language.",
+    "categories": ["Testing", "DevTool"],
+    "github": "https://github.com/microsoft/playwright"
+  },
+  {
+    "name": "Vitest",
+    "description": "A blazing fast unit test framework powered by Vite. Jest-compatible with native ESM support.",
+    "categories": ["Testing", "Build Tool"],
+    "github": "https://github.com/vitest-dev/vitest"
+  },
+  {
+    "name": "ESLint",
+    "description": "Find and fix problems in your JavaScript code. Pluggable linting utility for JS and JSX.",
+    "categories": ["Linting", "DevTool"],
+    "github": "https://github.com/eslint/eslint"
+  },
+  {
+    "name": "Prettier",
+    "description": "An opinionated code formatter. Supports many languages and integrates with most editors.",
+    "categories": ["Formatting", "DevTool"],
+    "github": "https://github.com/prettier/prettier"
+  },
+  {
+    "name": "Docker",
+    "description": "Platform for developing, shipping, and running applications in containers for consistent environments.",
+    "categories": ["DevOps", "Infrastructure"],
+    "github": "https://github.com/docker/cli"
+  },
+  {
+    "name": "Turborepo",
+    "description": "High-performance build system for JavaScript and TypeScript monorepos with intelligent caching.",
+    "categories": ["Build Tool", "Monorepo"],
+    "github": "https://github.com/vercel/turborepo"
+  },
+  {
+    "name": "SWR",
+    "description": "React hooks for data fetching. Stale-while-revalidate strategy for fast, lightweight data sync.",
+    "categories": ["Data Fetching", "Frontend"],
+    "github": "https://github.com/vercel/swr"
+  },
+  {
+    "name": "TanStack Query",
+    "description": "Powerful asynchronous state management for TS/JS. Caching, background updates, and stale data handling.",
+    "categories": ["Data Fetching", "State Management", "Frontend"],
+    "github": "https://github.com/TanStack/query"
+  },
+  {
+    "name": "Astro",
+    "description": "The web framework for content-driven websites. Ship zero JavaScript by default with island architecture.",
+    "categories": ["Framework", "Frontend", "SSR"],
+    "github": "https://github.com/withastro/astro"
+  },
+  {
+    "name": "Svelte",
+    "description": "A radical new approach to building user interfaces. Compiles components to efficient imperative code.",
+    "categories": ["Frontend", "UI Framework"],
+    "github": "https://github.com/sveltejs/svelte"
+  },
+  {
+    "name": "Redis",
+    "description": "In-memory data structure store used as database, cache, message broker, and streaming engine.",
+    "categories": ["Database", "Caching", "Infrastructure"],
+    "github": "https://github.com/redis/redis"
+  },
+  {
+    "name": "Supabase",
+    "description": "The open source Firebase alternative. Instant APIs, auth, realtime, storage, and edge functions.",
+    "categories": ["Backend", "Database", "Auth", "BaaS"],
+    "github": "https://github.com/supabase/supabase"
+  },
+  {
+    "name": "Auth.js",
+    "description": "Authentication for the web. Runtime agnostic, supports OAuth, email, and credentials providers.",
+    "categories": ["Auth", "Backend"],
+    "github": "https://github.com/nextauthjs/next-auth"
+  },
+  {
+    "name": "Three.js",
+    "description": "JavaScript 3D library. Create and display animated 3D computer graphics in a web browser.",
+    "categories": ["3D", "Frontend", "Graphics"],
+    "github": "https://github.com/mrdoob/three.js"
+  },
+  {
+    "name": "D3.js",
+    "description": "Data-Driven Documents. Bring data to life with SVG, Canvas and HTML visualizations.",
+    "categories": ["Data Visualization", "Frontend"],
+    "github": "https://github.com/d3/d3"
+  },
+  {
+    "name": "Bun",
+    "description": "Incredibly fast JavaScript runtime, bundler, test runner, and package manager. All in one.",
+    "categories": ["Runtime", "Build Tool"],
+    "github": "https://github.com/oven-sh/bun"
+  },
+  {
+    "name": "pnpm",
+    "description": "Fast, disk space efficient package manager. Strict node_modules with content-addressable storage.",
+    "categories": ["Package Manager", "Javascript"],
+    "github": "https://github.com/pnpm/pnpm"
+  }
+]
