@@ -31,7 +31,7 @@ export function toolsPlugin(): Plugin {
     configureServer(server) {
       server.watcher.add("tools/**/*.json")
 
-      server.watcher.on("change", async (path) => {
+      server.watcher.on("change", async path => {
         if (!path.includes("/tools/")) return
 
         const verbose = config.logLevel === "info"
