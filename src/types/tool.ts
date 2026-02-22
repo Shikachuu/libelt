@@ -1,9 +1,6 @@
 // biome-ignore lint: auto-generated file
 // This file is auto-generated. Do not edit manually.
 
-/**
- * A developer tool entry for the libelt catalog
- */
 export interface Tool {
   /**
    * The display name of the tool

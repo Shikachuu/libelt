@@ -71,39 +71,37 @@ export async function generateTools(
         continue
       }
 
-      // Support both single object and array of tools
-      const tools = Array.isArray(data) ? data : [data]
+      // Strip $schema property if present (used for IDE validation)
+      if (data && typeof data === "object" && "$schema" in data) {
+        delete data.$schema
+      }
+
+      // Validate entire file against collection schema
+      if (!validate(data)) {
+        const validationErrors = validate.errors
+          ?.map((e) => `${e.instancePath || "/"} ${e.message}`)
+          .join(", ")
+        errors.push(`${filePath}: Validation failed - ${validationErrors}`)
+        continue
+      }
+
+      // Extract tools array from validated collection
+      const collection = data as { tools: Tool[] }
+      const tools = collection.tools
 
       for (let i = 0; i < tools.length; i++) {
         const tool = tools[i]
-        const toolId = Array.isArray(data) ? `${filePath}[${i}]` : filePath
-
-        // Strip $schema property if present (used for IDE validation)
-        if (tool && typeof tool === "object" && "$schema" in tool) {
-          delete tool.$schema
-        }
-
-        // Validate against schema
-        if (!validate(tool)) {
-          const validationErrors = validate.errors
-            ?.map((e) => `${e.instancePath || "/"} ${e.message}`)
-            .join(", ")
-          errors.push(`${toolId}: Validation failed - ${validationErrors}`)
-          continue
-        }
-
-        // At this point, validation passed, so we can safely cast to Tool
-        const validTool = tool as Tool
+        const toolId = `${filePath}[${i}]`
 
         // Check for duplicate names (case-insensitive)
-        const nameLower = validTool.name.toLowerCase()
+        const nameLower = tool.name.toLowerCase()
         if (toolNames.has(nameLower)) {
-          errors.push(`${toolId}: Duplicate tool name "${validTool.name}"`)
+          errors.push(`${toolId}: Duplicate tool name "${tool.name}"`)
           continue
         }
 
         toolNames.add(nameLower)
-        allTools.push(validTool)
+        allTools.push(tool)
       }
     }
 
@@ -115,13 +113,13 @@ export async function generateTools(
     // Sort alphabetically by name
     allTools.sort((a, b) => a.name.localeCompare(b.name))
 
-    // Generate TypeScript types
-    // Create a copy of schema with simplified categories type for TS generation
-    const schemaForTS = JSON.parse(JSON.stringify(schema))
-    delete schemaForTS.properties.categories.minItems
-    delete schemaForTS.properties.categories.maxItems
+    // Generate TypeScript types from the tool item schema
+    // Extract the tool item schema and simplify categories for TS generation
+    const toolItemSchema = JSON.parse(JSON.stringify(schema.properties.tools.items))
+    delete toolItemSchema.properties.categories.minItems
+    delete toolItemSchema.properties.categories.maxItems
 
-    const tsContent = await compile(schemaForTS, "Tool", {
+    const tsContent = await compile(toolItemSchema, "Tool", {
       bannerComment: "// biome-ignore lint: auto-generated file\n// This file is auto-generated. Do not edit manually.",
       style: {
         semi: false,
@@ -147,6 +145,10 @@ export async function generateTools(
     // Write combined JSON
     const jsonPath = join(process.cwd(), "src/tools.json")
     await writeFile(jsonPath, JSON.stringify(allTools, null, 2), "utf-8")
+
+    // Copy schema to public folder for serving
+    const publicSchemaPath = join(process.cwd(), "public/schemas/tool-collection.json")
+    await writeFile(publicSchemaPath, schemaContent, "utf-8")
 
     if (verbose) console.log(`✅ Generated ${allTools.length} tools`)
 

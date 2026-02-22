@@ -14,6 +14,7 @@ dist-ssr
 
 # Generated files
 src/tools.json
+public/schemas/**
 
 # Editor directories and files
 .vscode/*
