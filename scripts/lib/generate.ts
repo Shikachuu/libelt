@@ -1,8 +1,8 @@
 import Ajv from "ajv"
 import addFormats from "ajv-formats"
 import { compile } from "json-schema-to-typescript"
-import { readFile, writeFile } from "node:fs/promises"
-import { join } from "node:path"
+import { mkdir, readFile, writeFile } from "node:fs/promises"
+import { dirname, join } from "node:path"
 import glob from "fast-glob"
 
 interface Tool {
@@ -140,14 +140,17 @@ export async function generateTools(
 
     // Write TypeScript types
     const typesPath = join(process.cwd(), "src/types/tool.ts")
+    await mkdir(dirname(typesPath), { recursive: true })
     await writeFile(typesPath, tsContent, "utf-8")
 
     // Write combined JSON
     const jsonPath = join(process.cwd(), "src/tools.json")
+    await mkdir(dirname(jsonPath), { recursive: true })
     await writeFile(jsonPath, JSON.stringify(allTools, null, 2), "utf-8")
 
     // Copy schema to public folder for serving
     const publicSchemaPath = join(process.cwd(), "public/schemas/tool-collection.json")
+    await mkdir(dirname(publicSchemaPath), { recursive: true })
     await writeFile(publicSchemaPath, schemaContent, "utf-8")
 
     if (verbose) console.log(`✅ Generated ${allTools.length} tools`)
