@@ -1,4 +1,4 @@
-// biome-ignore lint: auto-generated file
+// biome-ignore-all lint: auto-generated file
 // This file is auto-generated. Do not edit manually.
 
 export interface Tool {

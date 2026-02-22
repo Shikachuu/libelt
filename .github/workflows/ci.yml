@@ -41,7 +41,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run linter
-        run: pnpm run lint
+        run: pnpm run lint:ci
 
       - name: Validate tool schema
         run: pnpm run generate

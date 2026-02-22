@@ -1,9 +1,9 @@
-import Ajv from "ajv"
-import addFormats from "ajv-formats"
-import { compile } from "json-schema-to-typescript"
 import { mkdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, join } from "node:path"
+import Ajv from "ajv"
+import addFormats from "ajv-formats"
 import glob from "fast-glob"
+import { compile } from "json-schema-to-typescript"
 
 interface Tool {
   name: string
@@ -22,9 +22,7 @@ interface GenerateOptions {
   verbose?: boolean
 }
 
-export async function generateTools(
-  options: GenerateOptions = {},
-): Promise<GenerateResult> {
+export async function generateTools(options: GenerateOptions = {}): Promise<GenerateResult> {
   const { verbose = false } = options
   const errors: string[] = []
 
@@ -67,7 +65,9 @@ export async function generateTools(
         content = await readFile(fullPath, "utf-8")
         data = JSON.parse(content)
       } catch (err) {
-        errors.push(`${filePath}: JSON parse error - ${err instanceof Error ? err.message : String(err)}`)
+        errors.push(
+          `${filePath}: JSON parse error - ${err instanceof Error ? err.message : String(err)}`,
+        )
         continue
       }
 
@@ -79,7 +79,7 @@ export async function generateTools(
       // Validate entire file against collection schema
       if (!validate(data)) {
         const validationErrors = validate.errors
-          ?.map((e) => `${e.instancePath || "/"} ${e.message}`)
+          ?.map(e => `${e.instancePath || "/"} ${e.message}`)
           .join(", ")
         errors.push(`${filePath}: Validation failed - ${validationErrors}`)
         continue
@@ -120,7 +120,8 @@ export async function generateTools(
     delete toolItemSchema.properties.categories.maxItems
 
     const tsContent = await compile(toolItemSchema, "Tool", {
-      bannerComment: "// biome-ignore lint: auto-generated file\n// This file is auto-generated. Do not edit manually.",
+      bannerComment:
+        "// biome-ignore-all lint: auto-generated file\n// This file is auto-generated. Do not edit manually.",
       style: {
         semi: false,
         singleQuote: false,
