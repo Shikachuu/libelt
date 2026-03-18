@@ -7,7 +7,7 @@
     "build": "tsc -b && vite build",
     "generate": "tsx scripts/generate-tools.ts",
     "lint": "oxfmt && oxlint --fix",
-    "lint:ci": "biome ci",
+    "lint:ci": "oxfmt --check && oxlint -f github",
     "preview": "vite preview"
   },
   "dependencies": {
