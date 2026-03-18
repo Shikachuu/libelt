@@ -1,0 +1,65 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["import", "react", "jsdoc"],
+  "categories": {
+    "perf": "error",
+    "style": "error",
+    "suspicious": "error",
+    "correctness": "error",
+    "nursery": "error",
+    "restriction": "error",
+    "pedantic": "error"
+  },
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
+    "react/jsx-max-depth": ["error", { "max": 10 }],
+    "no-ternary": "off",
+    "no-console": "off",
+    "no-magic-numbers": "off",
+    "no-nodejs-modules": "off",
+    "id-length": "off",
+    "no-continue": "off",
+    "sort-imports": ["error", { "ignoreDeclarationSort": true, "allowSeparatedGroups": true }],
+    "no-undefined": "off",
+    "import/no-named-export": "off",
+    "import/prefer-default-export": "off",
+    "import/no-default-export": "error",
+    "max-lines-per-function": ["error", { "max": 150 }],
+    "max-statements": ["error", { "max": 15 }],
+    "max-dependencies": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "19.2.4",
+      "formComponents": [],
+      "linkComponents": [],
+      "componentWrapperFunctions": []
+    },
+    "jsdoc": {
+      "ignorePrivate": false,
+      "ignoreInternal": true,
+      "ignoreReplacesDocs": true,
+      "overrideReplacesDocs": true,
+      "augmentsExtendsReplacesDocs": false,
+      "implementsReplacesDocs": false,
+      "exemptDestructuredRootsFromChecks": false,
+      "tagNamePreference": {}
+    },
+    "vitest": {
+      "typecheck": true
+    }
+  },
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "node": true,
+    "es2024": true
+  },
+  "globals": {},
+  "ignorePatterns": ["**/dist", "**/out", "**/node_modules", "**/*.min.js", "**/*.min.css"]
+}
