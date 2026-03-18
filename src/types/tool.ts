@@ -1,4 +1,4 @@
-// biome-ignore-all lint: auto-generated file
+/* oxlint-disable */
 // This file is auto-generated. Do not edit manually.
 
 export interface Tool {

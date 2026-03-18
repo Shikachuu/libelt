@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "semi": false,
+  "useTabs": false,
+  "tabWidth": 2,
+  "endOfLine": "lf",
+  "arrowParens": "avoid",
+  "printWidth": 100,
+  "sortPackageJson": true,
+  "sortImports": {},
+  "sortTailwindcss": {},
+  "ignorePatterns": ["**/dist", "**/out", "**/*.min.js", "**/*.min.css", "src/types/tool.ts"]
+}

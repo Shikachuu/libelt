@@ -1,0 +1,54 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["import", "react", "jsdoc"],
+  "categories": {
+    "perf": "error",
+    "style": "error",
+    "suspicious": "error",
+    "correctness": "error",
+    "nursery": "error",
+    "restriction": "error",
+    "pedantic": "error"
+  },
+  "options": {
+    "typeAware": true,
+    "typeCheck": true,
+    "reportUnusedDisableDirectives": "warn"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
+    "react/jsx-max-depth": ["error", { "max": 10 }],
+    "no-ternary": "off",
+    "no-console": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "19.2.4",
+      "formComponents": [],
+      "linkComponents": [],
+      "componentWrapperFunctions": []
+    },
+    "jsdoc": {
+      "ignorePrivate": false,
+      "ignoreInternal": true,
+      "ignoreReplacesDocs": true,
+      "overrideReplacesDocs": true,
+      "augmentsExtendsReplacesDocs": false,
+      "implementsReplacesDocs": false,
+      "exemptDestructuredRootsFromChecks": false,
+      "tagNamePreference": {}
+    },
+    "vitest": {
+      "typecheck": true
+    }
+  },
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "node": true,
+    "es2024": true
+  },
+  "globals": {},
+  "ignorePatterns": ["**/dist", "**/out", "**/node_modules", "**/*.min.js", "**/*.min.css"]
+}

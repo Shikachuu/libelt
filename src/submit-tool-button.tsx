@@ -4,12 +4,18 @@ import { useCallback, useEffect, useState } from "react"
 export function SubmitToolButton() {
   const [open, setOpen] = useState(false)
 
-  const close = useCallback(() => setOpen(false), [])
+  const close = useCallback(() => {
+    setOpen(false)
+  }, [])
 
   useEffect(() => {
-    if (!open) return
+    if (!open) {
+      return
+    }
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close()
+      if (e.key === "Escape") {
+        close()
+      }
     }
     document.addEventListener("keydown", onKey)
     document.body.style.overflow = "hidden"
@@ -23,10 +29,12 @@ export function SubmitToolButton() {
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
-        className="px-4 py-2 border-2 border-foreground bg-card text-card-foreground font-mono text-xs uppercase tracking-wider hover:border-primary hover:text-primary transition-colors flex items-center gap-2"
+        onClick={() => {
+          setOpen(true)
+        }}
+        className="border-foreground bg-card text-card-foreground hover:border-primary hover:text-primary flex items-center gap-2 border-2 px-4 py-2 font-mono text-xs tracking-wider uppercase transition-colors"
       >
-        <GitPullRequest className="w-3.5 h-3.5" />
+        <GitPullRequest className="h-3.5 w-3.5" />
         Submit Tool
       </button>
 
@@ -39,85 +47,89 @@ export function SubmitToolButton() {
         >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-foreground/60"
-            onClick={() => close()}
+            className="bg-foreground/60 absolute inset-0"
+            onClick={() => {
+              close()
+            }}
             aria-hidden="true"
           />
 
           {/* Dialog */}
-          <div className="relative border-2 border-foreground bg-card w-full max-w-md z-10">
+          <div className="border-foreground bg-card relative z-10 w-full max-w-md border-2">
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b-2 border-foreground bg-primary">
+            <div className="border-foreground bg-primary flex items-center justify-between border-b-2 p-4">
               <h2
                 id="submit-dialog-title"
-                className="font-mono text-sm font-bold uppercase tracking-wider text-primary-foreground"
+                className="text-primary-foreground font-mono text-sm font-bold tracking-wider uppercase"
               >
                 Submit a Tool
               </h2>
               <button
                 type="button"
-                onClick={() => close()}
-                className="w-8 h-8 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/20 transition-colors"
+                onClick={() => {
+                  close()
+                }}
+                className="text-primary-foreground hover:bg-primary-foreground/20 flex h-8 w-8 items-center justify-center transition-colors"
                 aria-label="Close dialog"
               >
-                <X className="w-4 h-4" />
+                <X className="h-4 w-4" />
               </button>
             </div>
 
             {/* Body */}
-            <div className="p-6 flex flex-col gap-4">
+            <div className="flex flex-col gap-4 p-6">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center shrink-0 bg-secondary">
-                  <span className="font-mono text-sm font-bold text-secondary-foreground">1</span>
+                <div className="border-foreground bg-secondary flex h-8 w-8 shrink-0 items-center justify-center border-2">
+                  <span className="text-secondary-foreground font-mono text-sm font-bold">1</span>
                 </div>
                 <div>
-                  <p className="font-mono text-xs uppercase tracking-wider font-bold text-card-foreground">
+                  <p className="text-card-foreground font-mono text-xs font-bold tracking-wider uppercase">
                     Fork the Repository
                   </p>
-                  <p className="font-sans text-sm text-muted-foreground mt-1">
+                  <p className="text-muted-foreground mt-1 font-sans text-sm">
                     Fork our GitHub repository to your account.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center shrink-0 bg-secondary">
-                  <span className="font-mono text-sm font-bold text-secondary-foreground">2</span>
+                <div className="border-foreground bg-secondary flex h-8 w-8 shrink-0 items-center justify-center border-2">
+                  <span className="text-secondary-foreground font-mono text-sm font-bold">2</span>
                 </div>
                 <div>
-                  <p className="font-mono text-xs uppercase tracking-wider font-bold text-card-foreground">
+                  <p className="text-card-foreground font-mono text-xs font-bold tracking-wider uppercase">
                     Add Your Tool
                   </p>
-                  <p className="font-sans text-sm text-muted-foreground mt-1">
-                    {"Add an entry to a category file in"}{" "}
-                    <code className="font-mono text-primary">tools/</code>{" "}
-                    {"with name, description, categories, and GitHub URL."}
+                  <p className="text-muted-foreground mt-1 font-sans text-sm">
+                    Add an entry to a category file in{" "}
+                    <code className="text-primary font-mono">tools/</code> with name, description,
+                    categories, and GitHub URL.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center shrink-0 bg-secondary">
-                  <span className="font-mono text-sm font-bold text-secondary-foreground">3</span>
+                <div className="border-foreground bg-secondary flex h-8 w-8 shrink-0 items-center justify-center border-2">
+                  <span className="text-secondary-foreground font-mono text-sm font-bold">3</span>
                 </div>
                 <div>
-                  <p className="font-mono text-xs uppercase tracking-wider font-bold text-card-foreground">
+                  <p className="text-card-foreground font-mono text-xs font-bold tracking-wider uppercase">
                     Open a Pull Request
                   </p>
-                  <p className="font-sans text-sm text-muted-foreground mt-1">
-                    {"Submit a PR and we'll review your addition."}
+                  <p className="text-muted-foreground mt-1 font-sans text-sm">
+                    Submit a PR and we'll review your addition.
                   </p>
                 </div>
               </div>
 
-              <div className="border-t-2 border-border pt-4 mt-2">
+              <div className="border-border mt-2 border-t-2 pt-4">
                 <a
                   href="https://github.com/Shikachuu/libelt"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-foreground bg-primary text-primary-foreground font-mono text-xs uppercase tracking-wider hover:bg-primary/90 transition-colors"
+                  className="border-foreground bg-primary text-primary-foreground hover:bg-primary/90 flex w-full items-center justify-center gap-2 border-2 px-4 py-3 font-mono text-xs tracking-wider uppercase transition-colors"
                 >
-                  <GitPullRequest className="w-4 h-4" />
+                  <GitPullRequest className="h-4 w-4" />
                   Open GitHub Repository
                 </a>
               </div>

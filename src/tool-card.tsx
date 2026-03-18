@@ -1,5 +1,6 @@
 import { ExternalLink, X } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
+
 import type { Tool } from "./types/tool"
 
 interface ToolCardProps {
@@ -9,12 +10,18 @@ interface ToolCardProps {
 export function ToolCard({ tool }: ToolCardProps) {
   const [open, setOpen] = useState(false)
 
-  const close = useCallback(() => setOpen(false), [])
+  const close = useCallback(() => {
+    setOpen(false)
+  }, [])
 
   useEffect(() => {
-    if (!open) return
+    if (!open) {
+      return
+    }
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close()
+      if (e.key === "Escape") {
+        close()
+      }
     }
     document.addEventListener("keydown", onKey)
     document.body.style.overflow = "hidden"
@@ -28,17 +35,19 @@ export function ToolCard({ tool }: ToolCardProps) {
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
-        className="w-full text-left border-2 border-foreground bg-card p-4 flex items-center gap-3 hover:border-primary transition-colors group"
+        onClick={() => {
+          setOpen(true)
+        }}
+        className="border-foreground bg-card hover:border-primary group flex w-full items-center gap-3 border-2 p-4 text-left transition-colors"
       >
         <span
-          className="inline-block w-2 h-2 bg-primary shrink-0 group-hover:scale-125 transition-transform"
+          className="bg-primary inline-block h-2 w-2 shrink-0 transition-transform group-hover:scale-125"
           aria-hidden="true"
         />
-        <h3 className="font-mono text-sm font-bold uppercase tracking-wider truncate text-card-foreground">
+        <h3 className="text-card-foreground truncate font-mono text-sm font-bold tracking-wider uppercase">
           {tool.name}
         </h3>
-        <span className="ml-auto font-mono text-[10px] text-muted-foreground uppercase tracking-wider shrink-0">
+        <span className="text-muted-foreground ml-auto shrink-0 font-mono text-[10px] tracking-wider uppercase">
           {tool.categories[0]}
         </span>
       </button>
@@ -51,43 +60,43 @@ export function ToolCard({ tool }: ToolCardProps) {
           aria-labelledby={`tool-dialog-${tool.name}`}
         >
           {/* Backdrop */}
-          <div className="absolute inset-0 bg-foreground/60" onClick={close} aria-hidden="true" />
+          <div className="bg-foreground/60 absolute inset-0" onClick={close} aria-hidden="true" />
 
           {/* Dialog */}
-          <div className="relative border-2 border-foreground bg-card w-full max-w-md z-10">
+          <div className="border-foreground bg-card relative z-10 w-full max-w-md border-2">
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b-2 border-foreground bg-primary">
+            <div className="border-foreground bg-primary flex items-center justify-between border-b-2 p-4">
               <h2
                 id={`tool-dialog-${tool.name}`}
-                className="font-mono text-sm font-bold uppercase tracking-wider text-primary-foreground"
+                className="text-primary-foreground font-mono text-sm font-bold tracking-wider uppercase"
               >
                 {tool.name}
               </h2>
               <button
                 type="button"
                 onClick={close}
-                className="w-8 h-8 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/20 transition-colors"
+                className="text-primary-foreground hover:bg-primary-foreground/20 flex h-8 w-8 items-center justify-center transition-colors"
                 aria-label="Close dialog"
               >
-                <X className="w-4 h-4" />
+                <X className="h-4 w-4" />
               </button>
             </div>
 
             {/* Body */}
-            <div className="p-6 flex flex-col gap-4">
-              <p className="font-sans text-sm leading-relaxed text-card-foreground">
+            <div className="flex flex-col gap-4 p-6">
+              <p className="text-card-foreground font-sans text-sm leading-relaxed">
                 {tool.description}
               </p>
 
               <div className="flex flex-col gap-2">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                <span className="text-muted-foreground font-mono text-[10px] tracking-widest uppercase">
                   Categories
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {tool.categories.map((cat: string) => (
                     <span
                       key={cat}
-                      className="px-2 py-0.5 bg-secondary text-secondary-foreground font-mono text-xs uppercase tracking-wider border border-border"
+                      className="bg-secondary text-secondary-foreground border-border border px-2 py-0.5 font-mono text-xs tracking-wider uppercase"
                     >
                       {cat}
                     </span>
@@ -95,14 +104,14 @@ export function ToolCard({ tool }: ToolCardProps) {
                 </div>
               </div>
 
-              <div className="border-t-2 border-border pt-4 mt-2">
+              <div className="border-border mt-2 border-t-2 pt-4">
                 <a
                   href={tool.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-foreground bg-primary text-primary-foreground font-mono text-xs uppercase tracking-wider hover:bg-primary/90 transition-colors"
+                  className="border-foreground bg-primary text-primary-foreground hover:bg-primary/90 flex w-full items-center justify-center gap-2 border-2 px-4 py-3 font-mono text-xs tracking-wider uppercase transition-colors"
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="h-4 w-4" />
                   View on GitHub
                 </a>
               </div>

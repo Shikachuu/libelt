@@ -24,7 +24,9 @@ export function ThemeToggle() {
       }
     }
     mediaQuery.addEventListener("change", handleChange)
-    return () => mediaQuery.removeEventListener("change", handleChange)
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange)
+    }
   }, [])
 
   const toggle = () => {
@@ -37,10 +39,10 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      className="w-10 h-10 border-2 border-foreground flex items-center justify-center bg-card text-card-foreground hover:border-primary hover:text-primary transition-colors"
+      className="border-foreground bg-card text-card-foreground hover:border-primary hover:text-primary flex h-10 w-10 items-center justify-center border-2 transition-colors"
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
     >
-      {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+      {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </button>
   )
 }

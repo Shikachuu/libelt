@@ -1,16 +1,11 @@
 import type { Plugin, ResolvedConfig } from "vite"
+
 import { generateTools } from "../scripts/lib/generate.js"
 
 export function toolsPlugin(): Plugin {
   let config: ResolvedConfig
 
   return {
-    name: "vite-plugin-tools",
-
-    configResolved(resolvedConfig) {
-      config = resolvedConfig
-    },
-
     async buildStart() {
       // Use verbose logging for 'info' level, quiet for others
       const verbose = config.logLevel === "info"
@@ -18,7 +13,7 @@ export function toolsPlugin(): Plugin {
       const result = await generateTools({ verbose })
 
       if (!result.success) {
-        const errorMsg = result.errors?.join("\n") || "Unknown error"
+        const errorMsg = result.errors?.join("\n") ?? "Unknown error"
         this.error(`Tool generation failed:\n${errorMsg}`)
       }
 
@@ -28,11 +23,17 @@ export function toolsPlugin(): Plugin {
       }
     },
 
+    configResolved(resolvedConfig) {
+      config = resolvedConfig
+    },
+
     configureServer(server) {
       server.watcher.add("tools/**/*.json")
 
       server.watcher.on("change", async path => {
-        if (!path.includes("/tools/")) return
+        if (!path.includes("/tools/")) {
+          return
+        }
 
         const verbose = config.logLevel === "info"
 
@@ -47,13 +48,15 @@ export function toolsPlugin(): Plugin {
             config.logger.info(`[tools] Generated ${result.toolCount} tools`)
           }
           // Trigger full reload
-          server.ws.send({ type: "full-reload", path: "*" })
+          server.ws.send({ path: "*", type: "full-reload" })
         } else {
           config.logger.error(
-            `[tools] Generation failed: ${result.errors?.join(", ") || "Unknown error"}`,
+            `[tools] Generation failed: ${result.errors?.join(", ") ?? "Unknown error"}`,
           )
         }
       })
     },
+
+    name: "vite-plugin-tools",
   }
 }

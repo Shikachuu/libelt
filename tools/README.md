@@ -40,14 +40,17 @@ Each tool must have:
 ## Generating Tool Data
 
 ### Automatic
+
 Runs automatically during `pnpm dev` and `pnpm build`. Hot-reloads when you edit any `*.json` file.
 
 ### Manual
+
 ```bash
 pnpm generate
 ```
 
 This validates all tools and generates:
+
 - `src/tools.json` - Combined tool data (gitignored, don't edit)
 - `src/types/tool.ts` - TypeScript types (committed, don't edit)
 - `public/schemas/tool-collection.json` - Schema for public access

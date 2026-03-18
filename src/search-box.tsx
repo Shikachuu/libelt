@@ -7,23 +7,27 @@ interface SearchBoxProps {
 
 export function SearchBox({ value, onChange }: SearchBoxProps) {
   return (
-    <div className="border-2 border-foreground bg-card flex items-center">
-      <div className="flex items-center justify-center w-12 h-12 border-r-2 border-foreground bg-primary">
-        <Search className="w-5 h-5 text-primary-foreground" />
+    <div className="border-foreground bg-card flex items-center border-2">
+      <div className="border-foreground bg-primary flex h-12 w-12 items-center justify-center border-r-2">
+        <Search className="text-primary-foreground h-5 w-5" />
       </div>
       <input
         type="text"
         value={value}
-        onChange={e => onChange(e.target.value)}
+        onChange={e => {
+          onChange(e.target.value)
+        }}
         placeholder="SEARCH TOOLS..."
-        className="flex-1 h-12 px-4 bg-card text-card-foreground font-mono text-sm uppercase tracking-wider placeholder:text-muted-foreground focus:outline-none"
+        className="bg-card text-card-foreground placeholder:text-muted-foreground h-12 flex-1 px-4 font-mono text-sm tracking-wider uppercase focus:outline-none"
         aria-label="Search tools by name"
       />
       {value && (
         <button
           type="button"
-          onClick={() => onChange("")}
-          className="w-12 h-12 flex items-center justify-center border-l-2 border-foreground text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors font-mono text-xs"
+          onClick={() => {
+            onChange("")
+          }}
+          className="border-foreground text-muted-foreground hover:bg-secondary hover:text-foreground flex h-12 w-12 items-center justify-center border-l-2 font-mono text-xs transition-colors"
           aria-label="Clear search"
         >
           CLR

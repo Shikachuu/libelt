@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, join } from "node:path"
+
 import Ajv from "ajv"
 import addFormats from "ajv-formats"
 import glob from "fast-glob"
@@ -27,7 +28,9 @@ export async function generateTools(options: GenerateOptions = {}): Promise<Gene
   const errors: string[] = []
 
   try {
-    if (verbose) console.log("🔧 Generating tools...")
+    if (verbose) {
+      console.log("🔧 Generating tools...")
+    }
 
     // Load schema
     const schemaPath = join(process.cwd(), "tools/schema.json")
@@ -47,10 +50,12 @@ export async function generateTools(options: GenerateOptions = {}): Promise<Gene
 
     if (toolFiles.length === 0) {
       errors.push("No tool files found in tools/ directory")
-      return { success: false, toolCount: 0, errors }
+      return { errors, success: false, toolCount: 0 }
     }
 
-    if (verbose) console.log(`📁 Found ${toolFiles.length} tool file(s)`)
+    if (verbose) {
+      console.log(`📁 Found ${toolFiles.length} tool file(s)`)
+    }
 
     // Parse and validate all tools
     const allTools: Tool[] = []
@@ -87,7 +92,7 @@ export async function generateTools(options: GenerateOptions = {}): Promise<Gene
 
       // Extract tools array from validated collection
       const collection = data as { tools: Tool[] }
-      const tools = collection.tools
+      const { tools } = collection
 
       for (let i = 0; i < tools.length; i++) {
         const tool = tools[i]
@@ -107,7 +112,7 @@ export async function generateTools(options: GenerateOptions = {}): Promise<Gene
 
     // If we have any errors, fail early
     if (errors.length > 0) {
-      return { success: false, toolCount: allTools.length, errors }
+      return { errors, success: false, toolCount: allTools.length }
     }
 
     // Sort alphabetically by name
@@ -120,14 +125,13 @@ export async function generateTools(options: GenerateOptions = {}): Promise<Gene
     delete toolItemSchema.properties.categories.maxItems
 
     const tsContent = await compile(toolItemSchema, "Tool", {
-      bannerComment:
-        "// biome-ignore-all lint: auto-generated file\n// This file is auto-generated. Do not edit manually.",
+      bannerComment: "/* oxlint-disable */\n// This file is auto-generated. Do not edit manually.",
       style: {
         semi: false,
         singleQuote: false,
         tabWidth: 2,
-        useTabs: false,
         trailingComma: "all",
+        useTabs: false,
       },
       // Prevent fetching external schemas
       unreachableDefinitions: true,
@@ -154,11 +158,13 @@ export async function generateTools(options: GenerateOptions = {}): Promise<Gene
     await mkdir(dirname(publicSchemaPath), { recursive: true })
     await writeFile(publicSchemaPath, schemaContent, "utf-8")
 
-    if (verbose) console.log(`✅ Generated ${allTools.length} tools`)
+    if (verbose) {
+      console.log(`✅ Generated ${allTools.length} tools`)
+    }
 
     return { success: true, toolCount: allTools.length }
   } catch (err) {
     errors.push(`Fatal error: ${err instanceof Error ? err.message : String(err)}`)
-    return { success: false, toolCount: 0, errors }
+    return { errors, success: false, toolCount: 0 }
   }
 }

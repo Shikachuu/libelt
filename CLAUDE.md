@@ -22,12 +22,14 @@ pnpm lint             # Run Biome linter with auto-fix
 **Tech Stack:** React 19, TypeScript 5.9, Vite 8 (beta), Tailwind CSS 4.2, Biome 2.4, Fuse.js
 
 **Key Directories:**
+
 - `src/` - React application source
 - `tools/` - Tool data source files (JSON) and schema
 - `scripts/` - Build and generation scripts
 - `vite-plugins/` - Custom Vite plugin for auto-generation
 
 **Key Files:**
+
 - `src/App.tsx` - Main container managing search, filters, pagination state
 - `src/tools.json` - Auto-generated tool database (gitignored)
 - `src/types/tool.ts` - Auto-generated TypeScript types from schema
@@ -35,6 +37,7 @@ pnpm lint             # Run Biome linter with auto-fix
 - `tools/schema.json` - JSON Schema for tool validation
 
 **Components:**
+
 - `SearchBox` - Text input with clear button
 - `CategoryFilter` - Multi-select category pills with expand/collapse
 - `ToolCard` - Clickable card opening modal with tool details
@@ -51,6 +54,7 @@ pnpm lint             # Run Biome linter with auto-fix
 Tools are defined in `tools/*.json` files (golang.json, typescript.json, rust.json, etc.) and validated against `tools/schema.json` using AJV.
 
 The generation script (`scripts/lib/generate.ts`):
+
 1. Reads all `tools/*.json` files
 2. Validates against schema
 3. Checks for duplicate tool names
@@ -63,6 +67,7 @@ This runs automatically via a custom Vite plugin on `dev` and `build`.
 ## CI/CD
 
 GitHub Actions workflows in `.github/workflows/`:
+
 - **CI** (`ci.yml`) - Runs on PRs: lint, build, CodeQL security analysis
 - **CD** (`cd.yml`) - Runs on main push: deploys to GitHub Pages
 
