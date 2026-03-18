@@ -4,6 +4,7 @@ import { defineConfig } from "vite"
 
 import { toolsPlugin } from "./vite-plugins/vite-plugin-tools"
 
+// oxlint-disable-next-line import/no-default-export -- required by Vite
 export default defineConfig({
   plugins: [
     toolsPlugin(),

@@ -10,7 +10,12 @@ interface CategoryFilterProps {
   onClear: () => void
 }
 
-export function CategoryFilter({ categories, selected, onToggle, onClear }: CategoryFilterProps) {
+export const CategoryFilter = ({
+  categories,
+  selected,
+  onToggle,
+  onClear,
+}: CategoryFilterProps) => {
   const [expanded, setExpanded] = useState(false)
 
   const hasOverflow = categories.length > VISIBLE_COUNT

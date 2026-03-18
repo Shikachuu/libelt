@@ -1,8 +1,8 @@
 import Fuse from "fuse.js"
-import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useMemo, useState } from "react"
 
 import { CategoryFilter } from "./category-filter"
+import { Pagination } from "./pagination"
 import { ResultsCounter } from "./results-counter"
 import { SearchBox } from "./search-box"
 import { SubmitToolButton } from "./submit-tool-button"
@@ -19,9 +19,10 @@ const fuseOptions = {
   ignoreLocation: true,
   includeScore: true,
   keys: [
-    { name: "name", weight: 0.5 }, // 50% - highest priority
-    { name: "description", weight: 0.3 }, // 30% - medium priority
-    { name: "categories", weight: 0.2 }, // 20% - lowest priority
+    // 50% - highest priority
+    { name: "name", weight: 0.5 },
+    { name: "description", weight: 0.3 },
+    { name: "categories", weight: 0.2 },
   ],
   minMatchCharLength: 1,
   threshold: 0.4,
@@ -29,7 +30,7 @@ const fuseOptions = {
 
 const allCategories = Array.from(new Set(tools.flatMap(t => t.categories))).sort()
 
-export default function App() {
+export const App = () => {
   const [search, setSearch] = useState("")
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [page, setPage] = useState(1)
@@ -37,23 +38,12 @@ export default function App() {
   // Initialize Fuse instance (memoized - only created once)
   const fuse = useMemo(() => new Fuse(tools, fuseOptions), [])
 
-  // Stage 1: Fuzzy search
   const searchFiltered = useMemo(() => {
     if (!search) {
       return tools
     }
 
     const results = fuse.search(search)
-
-    if (results.length > 0) {
-      console.debug(
-        "Fuse.js search results:",
-        results.map(r => ({
-          name: r.item.name,
-          score: r.score?.toFixed(3),
-        })),
-      )
-    }
 
     return results.map(r => r.item)
   }, [search, fuse])
@@ -89,7 +79,6 @@ export default function App() {
 
   return (
     <main className="bg-background min-h-screen">
-      {/* HEADER */}
       <header className="border-foreground border-b-2">
         <div className="mx-auto flex max-w-5xl items-start justify-between gap-4 px-4 py-6">
           <div className="flex flex-col gap-1">
@@ -110,9 +99,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* MAIN CONTENT */}
       <div className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8">
-        {/* Search */}
         <section aria-label="Search">
           <SearchBox value={search} onChange={handleSearch} />
         </section>
@@ -159,52 +146,9 @@ export default function App() {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <nav className="flex items-center justify-center gap-2" aria-label="Pagination">
-            <button
-              type="button"
-              onClick={() => {
-                setPage(p => Math.max(1, p - 1))
-              }}
-              disabled={safePage <= 1}
-              className="border-foreground bg-card text-card-foreground hover:border-primary hover:text-primary flex h-10 w-10 items-center justify-center border-2 transition-colors disabled:pointer-events-none disabled:opacity-30"
-              aria-label="Previous page"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
-              <button
-                key={p}
-                type="button"
-                onClick={() => {
-                  setPage(p)
-                }}
-                className={`h-10 w-10 border-2 font-mono text-xs font-bold transition-colors ${
-                  p === safePage
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-foreground bg-card text-card-foreground hover:border-primary hover:text-primary"
-                }`}
-                aria-current={p === safePage ? "page" : undefined}
-              >
-                {p}
-              </button>
-            ))}
-
-            <button
-              type="button"
-              onClick={() => {
-                setPage(p => Math.min(totalPages, p + 1))
-              }}
-              disabled={safePage >= totalPages}
-              className="border-foreground bg-card text-card-foreground hover:border-primary hover:text-primary flex h-10 w-10 items-center justify-center border-2 transition-colors disabled:pointer-events-none disabled:opacity-30"
-              aria-label="Next page"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-          </nav>
+          <Pagination currentPage={safePage} totalPages={totalPages} onPageChange={setPage} />
         )}
 
-        {/* Footer */}
         <footer className="border-foreground border-t-2 pt-6 pb-8">
           <span className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
             {tools.length} Tools Indexed

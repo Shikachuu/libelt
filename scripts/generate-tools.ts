@@ -1,6 +1,6 @@
 import { generateTools } from "./lib/generate.js"
 
-async function main() {
+const main = async () => {
   const result = await generateTools({ verbose: true })
 
   if (!result.success) {

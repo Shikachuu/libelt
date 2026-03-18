@@ -14,12 +14,12 @@ pnpm run dev          # Start Vite dev server (auto-generates tools)
 pnpm run build        # TypeScript check + Vite production build
 pnpm run preview      # Preview production build locally
 pnpm run generate     # Manually regenerate tool data from tools/*.json
-pnpm lint             # Run Biome linter with auto-fix
+pnpm lint             # Run oxlint + oxfmt (linting and formatting)
 ```
 
 ## Architecture
 
-**Tech Stack:** React 19, TypeScript 5.9, Vite 8 (beta), Tailwind CSS 4.2, Biome 2.4, Fuse.js
+**Tech Stack:** React 19, TypeScript 5.9, Vite 8 (beta), Tailwind CSS 4.2, oxlint + oxfmt, Fuse.js
 
 **Key Directories:**
 
@@ -41,9 +41,15 @@ pnpm lint             # Run Biome linter with auto-fix
 - `SearchBox` - Text input with clear button
 - `CategoryFilter` - Multi-select category pills with expand/collapse
 - `ToolCard` - Clickable card opening modal with tool details
+- `Dialog` - Shared modal shell (backdrop, header, close button, children slot)
+- `Pagination` - Page navigation controls
 - `ThemeToggle` - Dark/light mode toggle (persists to localStorage)
 - `ResultsCounter` - Displays filtered vs total tool count
 - `SubmitToolButton` - Modal with PR submission instructions
+
+**Hooks:**
+
+- `src/hooks/useDialog.ts` - Shared dialog state (open/close, Escape key, body scroll lock)
 
 **State Management:** React hooks (useState, useMemo, useCallback). All state lives in App.tsx.
 
@@ -76,9 +82,17 @@ GitHub Actions workflows in `.github/workflows/`:
 Every change must pass these checks before committing:
 
 ```bash
-pnpm lint             # Biome linting and formatting
+pnpm lint             # oxlint linting + oxfmt formatting
 pnpm build            # TypeScript type-check + production build
 ```
+
+## Linting
+
+- **Linter:** oxlint (config: `.oxlintrc.json`), **Formatter:** oxfmt (config: `.oxfmtrc.json`)
+- Inline rule suppression uses `// oxlint-disable-next-line rule-name` (NOT `eslint-disable`)
+- oxfmt owns import sorting (`sortImports`); oxlint's `sort-imports` is set to `ignoreDeclarationSort` to avoid conflicts
+- Named exports are enforced (`import/no-default-export: error`); use `oxlint-disable-next-line` for framework-required defaults (e.g. `vite.config.ts`)
+- Function expressions (arrow functions) are preferred over function declarations (`func-style`)
 
 ## Notes
 

@@ -7,7 +7,7 @@
   "arrowParens": "avoid",
   "printWidth": 100,
   "sortPackageJson": true,
-  "sortImports": {},
+  "sortImports": { "order": "asc" },
   "sortTailwindcss": {},
   "ignorePatterns": ["**/dist", "**/out", "**/*.min.js", "**/*.min.css", "src/types/tool.ts"]
 }

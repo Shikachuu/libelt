@@ -23,7 +23,8 @@ interface GenerateOptions {
   verbose?: boolean
 }
 
-export async function generateTools(options: GenerateOptions = {}): Promise<GenerateResult> {
+// oxlint-disable max-statements -- it would be unnecessary to split this bc it would separate the logic
+export const generateTools = async (options: GenerateOptions = {}): Promise<GenerateResult> => {
   const { verbose = false } = options
   const errors: string[] = []
 
@@ -57,28 +58,38 @@ export async function generateTools(options: GenerateOptions = {}): Promise<Gene
       console.log(`📁 Found ${toolFiles.length} tool file(s)`)
     }
 
+    // Read all tool files in parallel
+    const fileContents = await Promise.all(
+      toolFiles.map(
+        async (filePath): Promise<{ data: unknown; filePath: string } | { error: string }> => {
+          const fullPath = join(process.cwd(), filePath)
+          try {
+            const content = await readFile(fullPath, "utf-8")
+            return { data: JSON.parse(content) as unknown, filePath }
+          } catch (err) {
+            return {
+              error: `${filePath}: JSON parse error - ${err instanceof Error ? err.message : String(err)}`,
+            }
+          }
+        },
+      ),
+    )
+
     // Parse and validate all tools
     const allTools: Tool[] = []
     const toolNames = new Set<string>()
 
-    for (const filePath of toolFiles) {
-      const fullPath = join(process.cwd(), filePath)
-      let content: string
-      let data: unknown
-
-      try {
-        content = await readFile(fullPath, "utf-8")
-        data = JSON.parse(content)
-      } catch (err) {
-        errors.push(
-          `${filePath}: JSON parse error - ${err instanceof Error ? err.message : String(err)}`,
-        )
+    for (const result of fileContents) {
+      if ("error" in result) {
+        errors.push(result.error)
         continue
       }
 
+      const { data, filePath } = result
+
       // Strip $schema property if present (used for IDE validation)
       if (data && typeof data === "object" && "$schema" in data) {
-        delete data.$schema
+        delete (data as Record<string, unknown>).$schema
       }
 
       // Validate entire file against collection schema
@@ -94,7 +105,7 @@ export async function generateTools(options: GenerateOptions = {}): Promise<Gene
       const collection = data as { tools: Tool[] }
       const { tools } = collection
 
-      for (let i = 0; i < tools.length; i++) {
+      for (let i = 0; i < tools.length; i += 1) {
         const tool = tools[i]
         const toolId = `${filePath}[${i}]`
 
@@ -115,16 +126,19 @@ export async function generateTools(options: GenerateOptions = {}): Promise<Gene
       return { errors, success: false, toolCount: allTools.length }
     }
 
-    // Sort alphabetically by name
     allTools.sort((a, b) => a.name.localeCompare(b.name))
 
-    // Generate TypeScript types from the tool item schema
-    // Extract the tool item schema and simplify categories for TS generation
     const toolItemSchema = JSON.parse(JSON.stringify(schema.properties.tools.items))
     delete toolItemSchema.properties.categories.minItems
     delete toolItemSchema.properties.categories.maxItems
 
     const tsContent = await compile(toolItemSchema, "Tool", {
+      $refOptions: {
+        resolve: {
+          http: false,
+          https: false,
+        },
+      },
       bannerComment: "/* oxlint-disable */\n// This file is auto-generated. Do not edit manually.",
       style: {
         semi: false,
@@ -133,17 +147,9 @@ export async function generateTools(options: GenerateOptions = {}): Promise<Gene
         trailingComma: "all",
         useTabs: false,
       },
-      // Prevent fetching external schemas
       unreachableDefinitions: true,
-      $refOptions: {
-        resolve: {
-          http: false,
-          https: false,
-        },
-      },
     })
 
-    // Write TypeScript types
     const typesPath = join(process.cwd(), "src/types/tool.ts")
     await mkdir(dirname(typesPath), { recursive: true })
     await writeFile(typesPath, tsContent, "utf-8")
@@ -153,7 +159,6 @@ export async function generateTools(options: GenerateOptions = {}): Promise<Gene
     await mkdir(dirname(jsonPath), { recursive: true })
     await writeFile(jsonPath, JSON.stringify(allTools, null, 2), "utf-8")
 
-    // Copy schema to public folder for serving
     const publicSchemaPath = join(process.cwd(), "public/schemas/tool-collection.json")
     await mkdir(dirname(publicSchemaPath), { recursive: true })
     await writeFile(publicSchemaPath, schemaContent, "utf-8")
